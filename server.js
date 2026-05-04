@@ -39,6 +39,15 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("server running on 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+	console.log('server running on ${PORT}');
+});
+
+app.get("/text", (req, res) => {
+    res.json({
+      message: "backend is connected",
+      time: new Date().toISOString()
+    });
 });
