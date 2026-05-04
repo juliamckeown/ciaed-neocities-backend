@@ -12,21 +12,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/test", (req, res) => {
+  res.json({
+    status: "okay",
+    message: "backend is connected",
+    time: new Date().toISOString()
+  });
+});
+
 app.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
-  try {  
- const transporter = nodemailer.createTransport({
+  try {
+    const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
       },
-port: 587,
-secure: false,
-tls {
-   rejectUnauthorized: false
-}
+      port: 587,
+      secure: false,
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     await transporter.sendMail({
@@ -38,8 +46,9 @@ tls {
     });
 
     res.json({ success: true, message: "sent 💌" });
+
   } catch (err) {
-    console.error(err);
+    console.error("EMAIL ERROR:", err);
     res.status(500).json({ success: false });
   }
 });
@@ -47,13 +56,5 @@ tls {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-	console.log(`server running on ${PORT}`);
-});
-
-app.get("/test", (req, res) => {
-    res.json({
-      status: "okay",
-      message: "backend is connected",
-      time: new Date().toISOString()
-    });
+  console.log(`server running on ${PORT}`);
 });
