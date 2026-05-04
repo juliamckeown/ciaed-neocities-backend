@@ -15,13 +15,18 @@ app.use(express.json());
 app.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
-  try {
-    const transporter = nodemailer.createTransport({
+  try {  
+ const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
-      }
+      },
+port: 587,
+secure: false,
+tls {
+   rejectUnauthorized: false
+}
     });
 
     await transporter.sendMail({
