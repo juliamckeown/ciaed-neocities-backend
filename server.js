@@ -25,7 +25,7 @@ app.post("/contact", async (req, res) => {
 
   try {
     const transporter = nodemailer.createTransport({
-      service: "smtp.gmail.com",
+      host: "smtp.gmail.com",
       port: 587,
       secure: false, 
       auth: {
@@ -42,7 +42,7 @@ app.post("/contact", async (req, res) => {
       text: message
     });
 
-    res.json({ success: true, message: "sent 💌" });
+    res.json({ success: true, message: "sent" });
 
   } catch (err) {
     console.error("EMAIL ERROR:", err);
@@ -52,6 +52,6 @@ app.post("/contact", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`server running on ${PORT}`);
 });
