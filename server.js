@@ -45,8 +45,9 @@ app.listen(PORT, () => {
 	console.log('server running on ${PORT}');
 });
 
-app.get("/text", (req, res) => {
+app.get("/test", (req, res) => {
     res.json({
+      status: "okay",
       message: "backend is connected",
       time: new Date().toISOString()
     });
