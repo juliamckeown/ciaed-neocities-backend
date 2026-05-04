@@ -42,7 +42,7 @@ app.post("/contact", async (req, res) => {
       text: message
     });
 
-    res.json({ success: true, message: "sent" });
+    res.json({ success: true, message: "THANK YOU" });
 
   } catch (err) {
     console.error("EMAIL ERROR:", err);
